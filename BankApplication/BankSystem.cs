@@ -9,7 +9,7 @@ namespace BankApplication {
     /// BankApplication contains most of the methods for the actual project
     /// </summary>
 
-    internal class BankSystem {
+    public class BankSystem {
 
         public static void OpenAccount(Customer customer) {
 
@@ -59,19 +59,20 @@ namespace BankApplication {
 
         }
 
-        public static void TransferbetweenAccounts(Customer customer) {
+        //Checking if the number really changes
+        public static void TransferbetweenAccounts(Customer customer,string TransferFrom,string TransferTo, float transfer) {
 
-            float transfer;
+            //float transfer;
             string transferTo = "";
             bool run = true;
 
-            Console.Clear();
+            //Console.Clear();
             do {
 
                 //Method for account names to show the user the alternatives
                 customer.AccountName();
                 Console.WriteLine("Which account do you want to transfer from: Name of the account");
-                string transferFrom = Console.ReadLine();
+                string transferFrom = TransferFrom;
 
                 //Check if the accounts dictionary contains the correct account name
                 if (customer.accounts.ContainsKey(transferFrom) == true)
@@ -82,20 +83,20 @@ namespace BankApplication {
                         Console.WriteLine($"Amount to transfer from {transferFrom} : {customer.accounts[transferFrom][0]}");
 
                         // Handling letters and incorrect funds
-                        if (!float.TryParse(Console.ReadLine(), out transfer))
-                            Console.Clear();
+                        //if (!float.TryParse(Console.ReadLine(), out transfer))
+                        //    Console.Clear();
 
                         //Parsing the account balance and checking if the user has the funds
                         if (transfer > 0 && transfer <= float.Parse(customer.accounts[transferFrom][0]))
                         {
-                            Console.Clear();
+                            //Console.Clear();
                             // do while for the answer of account to transfer To
                             do
                             {
                                 customer.AccountName();
 
                                 Console.WriteLine("Which of the accounts above do you want to transfer To:");
-                                transferTo = Console.ReadLine();
+                                transferTo = TransferTo;
 
                                 if (transferTo == transferFrom)
                                 {
@@ -113,7 +114,7 @@ namespace BankApplication {
                             //Check if the accounts contains the name
                             if (customer.accounts.ContainsKey(transferTo) == true)
                             {
-                                Console.Clear();
+                                //Console.Clear();
                                 //Check currency and send over correct exchange
                                 ExchangeRate(customer, customer, transferFrom, transferTo, transfer);
 
@@ -138,7 +139,7 @@ namespace BankApplication {
                 }
                 else
                 {
-                    Console.Clear();
+                    //Console.Clear();
                     Console.WriteLine("Account not found of the name: " + transferFrom);
                 }
             } while (run == true);

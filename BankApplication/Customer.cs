@@ -7,7 +7,7 @@ namespace BankApplication {
     /// Customer class which is made up of; name, password and account(s)
     /// </summary>
 
-    internal class Customer : User {
+    public class Customer : User {
 
         //Accout list for the customer
         public Dictionary<string, List<string>> accounts;

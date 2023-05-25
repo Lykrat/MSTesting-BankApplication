@@ -8,7 +8,7 @@ namespace BankApplication {
     /// </summary>
 
     //Abstract since this class is not called and only inherited
-    abstract class User {
+    public class User {
 
         //protected, cannot be accessed from a non-derived class from either the same assembly or a different one
         protected string name;
