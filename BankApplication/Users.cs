@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankApplication {
 
-    internal class Users {
+    public class Users {
 
         //List of customer objects
         public static List<Customer> customerList = new List<Customer>();

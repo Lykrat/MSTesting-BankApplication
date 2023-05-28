@@ -60,184 +60,172 @@ namespace BankApplication {
         }
 
         //Checking if the number really changes
-        public static void TransferbetweenAccounts(Customer customer,string TransferFrom,string TransferTo, float transfer) {
+        public static void TransferbetweenAccounts(Customer customer,string transferFrom,string transferTo, float transfer) {
 
             //float transfer;
-            string transferTo = "";
-            bool run = true;
+            //string transferTo = "";
+            //bool run = true;
 
             //Console.Clear();
-            do {
+            //Method for account names to show the user the alternatives
+            //customer.AccountName();
+            //Console.WriteLine("Which account do you want to transfer from: Name of the account");
 
-                //Method for account names to show the user the alternatives
-                customer.AccountName();
-                Console.WriteLine("Which account do you want to transfer from: Name of the account");
-                string transferFrom = TransferFrom;
+            //Check if the accounts dictionary contains the correct account name
+            if (customer.accounts.ContainsKey(transferFrom) == true)
+            {
+                // while loop to get the  first account to transfer money from
+                Console.WriteLine($"Amount to transfer from {transferFrom} : {customer.accounts[transferFrom][0]}");
 
-                //Check if the accounts dictionary contains the correct account name
-                if (customer.accounts.ContainsKey(transferFrom) == true)
-                {
-                    // while loop to get the  first account to transfer money from
-                    while (true)
-                    {
-                        Console.WriteLine($"Amount to transfer from {transferFrom} : {customer.accounts[transferFrom][0]}");
+                // Handling letters and incorrect funds
+                //if (!float.TryParse(Console.ReadLine(), out transfer))
+                //    Console.Clear();
 
-                        // Handling letters and incorrect funds
-                        //if (!float.TryParse(Console.ReadLine(), out transfer))
-                        //    Console.Clear();
-
-                        //Parsing the account balance and checking if the user has the funds
-                        if (transfer > 0 && transfer <= float.Parse(customer.accounts[transferFrom][0]))
-                        {
-                            //Console.Clear();
-                            // do while for the answer of account to transfer To
-                            do
-                            {
-                                customer.AccountName();
-
-                                Console.WriteLine("Which of the accounts above do you want to transfer To:");
-                                transferTo = TransferTo;
-
-                                if (transferTo == transferFrom)
-                                {
-                                    Console.WriteLine("You can not Transfer from and to the SAME account");
-                                }
-                                else if (transferTo != transferFrom && customer.accounts.ContainsKey(transferTo) == true)
-                                {
-                                    break;
-                                }
-                                else Console.WriteLine("That account doesnt exist");
-
-                            } while (true);
-
-
-                            //Check if the accounts contains the name
-                            if (customer.accounts.ContainsKey(transferTo) == true)
-                            {
-                                //Console.Clear();
-                                //Check currency and send over correct exchange
-                                ExchangeRate(customer, customer, transferFrom, transferTo, transfer);
-
-                                Console.WriteLine($"You have succesfully transfered {transfer}{customer.accounts[transferFrom][1]} from " +
-                                    $"{transferFrom} to {transferTo}");
-
-                                //Logs the information
-                                string sendlog = $"{DateTime.Now}: You have succesfully transfered {transfer}{customer.accounts[transferFrom][1]} from {transferFrom} to {transferTo}";
-                                Log(customer, sendlog);
-
-                                customer.AccountName();
-                                run = false;
-                                break;
-                            }
-                            else
-                                Console.WriteLine("Account not found of the name: " + transferTo);
-                        }
-                        else
-                            Console.WriteLine("Not a valid choice");
-                    }
-
-                }
-                else
+                //Parsing the account balance and checking if the user has the funds
+                if (transfer > 0 && transfer <= float.Parse(customer.accounts[transferFrom][0]))
                 {
                     //Console.Clear();
-                    Console.WriteLine("Account not found of the name: " + transferFrom);
+                    // do while for the answer of account to transfer To
+                    //customer.AccountName();
+
+                    //Console.WriteLine("Which of the accounts above do you want to transfer To:");
+
+                    if (transferTo == transferFrom)
+                    {
+                        Console.WriteLine("You can not Transfer from and to the SAME account");
+                    }
+                    else if (transferTo != transferFrom && customer.accounts.ContainsKey(transferTo) == true)
+                    {
+                        if (customer.accounts.ContainsKey(transferTo) == true)
+                        {
+                            //Console.Clear();
+                            //Check currency and send over correct exchange
+                            ExchangeRate(customer, customer, transferFrom, transferTo, transfer);
+
+                            Console.WriteLine($"You have succesfully transfered {transfer}{customer.accounts[transferFrom][1]} from " +
+                                $"{transferFrom} to {transferTo}");
+
+                            //Logs the information
+                            string sendlog = $"{DateTime.Now}: You have succesfully transfered {transfer}{customer.accounts[transferFrom][1]} from {transferFrom} to {transferTo}";
+                            Log(customer, sendlog);
+
+                            customer.AccountName();
+                        }
+                        else
+                            Console.WriteLine("Account not found of the name: " + transferTo);
+                    }
+                    else Console.WriteLine("That account doesnt exist");
                 }
-            } while (run == true);
+                else
+                    Console.WriteLine("Not a valid value choice");
+
+            }
+            else
+            {
+                //Console.Clear();
+                Console.WriteLine("Account not found of the name: " + transferFrom);
+            }
 
         }
 
-        public static void TransferBetweenCustomers(Customer customer) {
+        public static void TransferBetweenCustomers(Customer customer,string choice, string choice2, string customerName,float amount) {
 
             //Displays the accounts in the logged in customer
-            customer.CustomerInfo();
+            //customer.CustomerInfo();
 
             //Logged in customer account + account to send it to
-            string choice, choice2, customerName;
+            //string choice, choice2, customerName;
             Customer customer2;
 
             //Find account in logged into customer
-            while (true) {
+            //while (true) {
 
-                Console.WriteLine($"\nAccount name in {customer.Name} to transfer from:");
-                choice = Console.ReadLine();
+                //Console.WriteLine($"\nAccount name in {customer.Name} to transfer from:");
+                //choice = Console.ReadLine();
 
                 //If the customer exists, exit out of the while loop
-                if (customer.accounts.ContainsKey(choice))
-                    break;
-                else
-                    Console.WriteLine("Not a valid account name, try again.");
+            if (customer.accounts.ContainsKey(choice))
+            {
 
             }
+                
+            else
+                Console.WriteLine("Not a valid account name, try again.");
+
+            //}
 
             //Find the 2nd customer account
-            while (true) {
 
-                Console.WriteLine("\nCustomer name to transfer to:");
-                customerName = Console.ReadLine();
+            //Console.WriteLine("\nCustomer name to transfer to:");
+            //customerName = Console.ReadLine();
 
-                //Check if the customer exists in the list using the previous input
-                if (Users.customerList.Exists(x => x.Name == customerName)) {
+            //Check if the customer exists in the list using the previous input
+            if (Users.customerList.Exists(x => x.Name == customerName)) {
 
-                    //Create an object using the name
-                    customer2 = Users.customerList.Find(x => x.Name == customerName);
+                //Create an object using the name
+                customer2 = Users.customerList.Find(x => x.Name == customerName);
 
-                    //Display accounts in that customer
-                    customer2.CustomerInfo();
+                //Display accounts in that customer
+                //customer2.CustomerInfo();
 
-                    while (true) {
+                //Console.WriteLine($"\nAccount name in {customer2.Name} to transfer to:");
+                //choice2 = Console.ReadLine();
 
-                        Console.WriteLine($"\nAccount name in {customer2.Name} to transfer to:");
-                        choice2 = Console.ReadLine();
+                //Boolean, check if customer two contains key (choice2)
+                if (customer2.accounts.ContainsKey(choice2))
+                    if (float.Parse(customer.accounts[choice][0]) < amount)
+                        Console.WriteLine("\nAccount does not have the necessary funds available\nTry again:");
+                    else {
+                        //Check currency and send over correct amount
+                        ExchangeRate(customer, customer2, choice, choice2, amount);
 
-                        //Boolean, check if customer two contains key (choice2)
-                        if (customer2.accounts.ContainsKey(choice2))
-                            break;
-                        else
-                            Console.WriteLine("\nNot a valid account name, try again.");
-                    }
+                        //Displays what was transfered and the new balance of the logged in customer
+                        Console.WriteLine($"\nTransfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}");
 
-                    break;
-                }
+                        //Logs the information
+                        string sendlog = $"{DateTime.Now}: Transfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}";
+                        Log(customer, sendlog);
 
-                //If no customer with the name inputed exists
-                else if (!Users.customerList.Exists(x => x.Name == customerName))
-                    Console.WriteLine("Not a valid name, try again.");
+                        customer.CustomerInfo();
+                        customer2.CustomerInfo();}
+                else
+                    Console.WriteLine("\nNot a valid account name, try again.");
             }
+
+            //If no customer with the name inputed exists
+            else if (!Users.customerList.Exists(x => x.Name == customerName))
+                Console.WriteLine("Not a valid name, try again.");
 
             //customer.accounts[choice][0] = balance & customer.accounts[choice][1] = currency [kr, $, etc.]
-            Console.WriteLine($"\nYour account: {customer.Name} : {customer.accounts[choice][0] + customer.accounts[choice][1]}\n" +
-                              $"Transfer to: {customer2.Name} : {customer2.accounts[choice2][0] + customer2.accounts[choice2][1]}\n" +
-                              $"How much do you want to transfer?:");
+            //Console.WriteLine($"\nYour account: {customer.Name} : {customer.accounts[choice][0] + customer.accounts[choice][1]}\n" +
+            //                  $"Transfer to: {customer2.Name} : {customer2.accounts[choice2][0] + customer2.accounts[choice2][1]}\n" +
+            //                  $"How much do you want to transfer?:");
 
-            while (true) {
+            //Error handling, check if it can't parse it as a float
+            //float amount;
+            //if (amount==amount) {
 
-                //Error handling, check if it can't parse it as a float
-                float amount;
-                if (float.TryParse(Console.ReadLine(), out amount)) {
+            //    //Check currency and send over correct amount
+            //    ExchangeRate(customer, customer2, choice, choice2, amount);
 
-                    //Check currency and send over correct amount
-                    ExchangeRate(customer, customer2, choice, choice2, amount);
+            //    //Displays what was transfered and the new balance of the logged in customer
+            //    Console.WriteLine($"\nTransfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}");
 
-                    //Displays what was transfered and the new balance of the logged in customer
-                    Console.WriteLine($"\nTransfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}");
+            //    //Logs the information
+            //    string sendlog = $"{DateTime.Now}: Transfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}";
+            //    Log(customer, sendlog);
 
-                    //Logs the information
-                    string sendlog = $"{DateTime.Now}: Transfered {amount}{customer.accounts[choice][1]} from {customer.Name} to {customer2.Name}";
-                    Log(customer, sendlog);
+            //    customer.CustomerInfo();
+            //    customer2.CustomerInfo();
 
-                    customer.CustomerInfo();
-                    customer2.CustomerInfo();
+            //    return;
+            //}
 
-                    return;
-                }
-
-                //Check if amount is bigger than the funds in the account
-                if (float.Parse(customer.accounts[choice][0]) < amount)
-                    Console.WriteLine("\nAccount does not have the necessary funds available\nTry again:");
-                else
-                    Console.WriteLine("Number only.");
-            }
-
+            //Check if amount is bigger than the funds in the account
+            //if (float.Parse(customer.accounts[choice][0]) < amount)
+            //    Console.WriteLine("\nAccount does not have the necessary funds available\nTry again:");
+            //else
+            //    Console.WriteLine("Number only.");
         }
 
         public static void ExchangeRate(Customer customer1, Customer customer2, string account1, string account2, float transfer1) {
@@ -355,21 +343,21 @@ namespace BankApplication {
 
         }
 
-        public static void CustomerCreation() {
+        public static void CustomerCreation(string name,string password) {
 
-            Console.WriteLine("\nName:");
-            string name = Console.ReadLine();
+            //Console.WriteLine("\nName:");
+            //string name = Console.ReadLine();
 
             //A character limit between 1-20
-            if (name.Length > 20 || name.Length < 1)
-                Console.WriteLine("The account name needs to be between 1 and 20 characters");
+            //if (name.Length > 20 || name.Length < 1)
+            //    Console.WriteLine("The account name needs to be between 1 and 20 characters");
 
             //Check if the account name already exists
-            else if (Users.customerList.Exists(x => x.Name == name))
-                Console.WriteLine("This account already exists for this user");
+            //else if (Users.customerList.Exists(x => x.Name == name))
+            //    Console.WriteLine("This account already exists for this user");
 
-            Console.WriteLine("\nPassword:");
-            string password = Console.ReadLine();
+            //Console.WriteLine("\nPassword:");
+            //string password = Console.ReadLine();
 
             //Creates a new customer object and adds it to the customerList
             Users.customerList.Add(new Customer(name, password, new Dictionary<string, List<string>>()));
